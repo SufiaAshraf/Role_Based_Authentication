@@ -6,13 +6,14 @@ router.use(bodyParser.json());
 //Bring in user registration function
 const { userRegister,userLogin,userAuth,serializeUser,checkRole } = require("../utils/auth");
 
+
 //User creation
-router.post("/register-user",async(req,res)=>{
+router.post("/register-user",userAuth,checkRole(["admin","superadmin"]),async(req,res)=>{
     await userRegister(req.body,"user",res);
 });
 
 //Admin creation
-router.post("/register-admin", async(req,res)=>{
+router.post("/register-admin",userAuth,checkRole(["superadmin"]), async(req,res)=>{
     await userRegister(req.body,"admin",res);
 });
 
