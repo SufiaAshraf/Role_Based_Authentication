@@ -17,12 +17,10 @@ router.post("/register-admin",userAuth,checkRole(["superadmin"]), async(req,res)
     await userRegister(req.body,"admin",res);
 });
 
-
 //SuperAdmin creation
-router.post("/register-superadmin", async(req,res)=>{
+router.post("/register-superadmin",checkRole(["superadmin"]),async(req,res)=>{
     await userRegister(req.body,"superadmin",res);
 });
-
 
 //Users login route
 router.post("/login-user", async(req,res)=>{
